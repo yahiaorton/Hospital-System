@@ -1,9 +1,8 @@
-case_type                 ,department
-Specialist Consultation   ,Cardiology
-Diagnostic Test           ,Imaging
-Surgery                   ,General Surgery
-Follow-up Visit           ,General Medicine
-Emergency                 ,Emergency
-Inpatient Admission       ,Internal Medicine
-Diagnostic                ,Pathology
-
+case_type,department
+Specialist Consultation,Cardiology
+Diagnostic Test,Imaging
+Surgery,General Surgery
+Follow-up Visit,General Medicine
+Emergency,Emergency
+Inpatient Admission,Internal Medicine
+Diagnostic,Pathology

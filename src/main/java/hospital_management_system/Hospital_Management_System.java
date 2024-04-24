@@ -10,20 +10,14 @@ public class Hospital_Management_System
 	final static String rootFolder = "..\\Hospital-System\\src\\main\\resources\\";
 	protected static List<Doctor> doctors;
 	protected static List<Patient> patients;
+	protected static List<MedicalRecord> mRecords;
 	
     public static void main(String[] args) 
     {
     	doctors = readDoctorsFromCsv(rootFolder + "doctor.csv");
     	patients = readPatientsFromCsv(rootFolder + "patient.csv");
+        mRecords = readMedicalRecordsFromCSV(rootFolder + "hospitalMedicalRecords.csv");
         
-    	// Print doctors for verification
-        for (Doctor doctor : doctors) {
-            System.out.println(doctor);
-        }
-        // Print patients for verification
-        for (Patient patient : patients) {
-            System.out.println(patient);
-        }
     }
     
     // CSV Handling Files
@@ -90,6 +84,50 @@ public class Hospital_Management_System
 
         return patients;
     }
+    public static List<MedicalRecord> readMedicalRecordsFromCSV(String filePath) {
+        List<MedicalRecord> medicalRecords = new ArrayList<>();
+
+        int lineNumber = 0;
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+            	lineNumber++;
+
+                if (lineNumber == 1) {  // skip the first line
+                    continue;
+                }
+                
+                String[] data = line.split(",");
+
+                int recordId = Integer.parseInt(data[0]);
+                int patientId = Integer.parseInt(data[1]);
+                String medicalHistory = data[2].replace("\"", "").replace(",", ";"); // Remove quotes and replace commas with ;
+                List<String> medications = splitAndTrim(data[3], ";");
+                List<String> allergies = splitAndTrim(data[4], ";");
+                List<String> treatments = splitAndTrim(data[5], ";");
+                List<String> diagnoses = splitAndTrim(data[6], ";");
+
+                MedicalRecord medicalRecord = new MedicalRecord(recordId, patientId, medicalHistory, 
+                                                                medications, allergies, treatments, diagnoses);
+                medicalRecords.add(medicalRecord);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading medical records from CSV: " + e.getMessage());
+        }
+
+        return medicalRecords;
+    }
+    private static List<String> splitAndTrim(String input, String delimiter) {
+        List<String> list = new ArrayList<>();
+        if (input != null && !input.isEmpty()) {
+            String[] items = input.split(delimiter);
+            for (String item : items) {
+                list.add(item.trim());
+            }
+        }
+        return list;
+    }
     private static List<Integer> parseIds(String idsString) {
         String[] idsArray = idsString.split(";");
         List<Integer> ids = new ArrayList<>();
@@ -98,7 +136,7 @@ public class Hospital_Management_System
         }
         return ids;
     }
-
+    
     //Create new Doctor and Patient Functions
     public static void createNewDoctor(String name, String workingTime, String workingDates, String department, List<Integer> appointmentIds, List<String> availableTimes) {
     	Doctor doc = new Doctor(name, workingTime, workingDates, department, appointmentIds, availableTimes);

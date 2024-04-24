@@ -6,13 +6,27 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PatientTest {
 	final static String rootFolder = "..\\Hospital-System\\src\\main\\resources\\";
 	Patient patient;
+	static InputStream sysInBackup;
+	
+	@BeforeAll
+	public static void setUpAll() {
+		sysInBackup = System.in; // backup System.in to restore it later
+		ByteArrayInputStream in = new ByteArrayInputStream("08:15".getBytes());
+		System.setIn(in);
+	}
+	@AfterAll
+	public static void cleanUpAll() {
+		System.setIn(sysInBackup);
+	}
 	
 	@BeforeEach
     public void setUp() {

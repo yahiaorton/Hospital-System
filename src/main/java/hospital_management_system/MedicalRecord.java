@@ -1,7 +1,8 @@
 package hospital_management_system;
-import java.util.ArrayList;
-import java.util.Date;
+
+import java.io.*;
 import java.util.List;
+
 public class MedicalRecord 
 {
     protected int recordId;
@@ -11,10 +12,10 @@ public class MedicalRecord
     protected List<String> allergies;
     protected List<String> treatments;
     protected List<String> diagnoses;
-    protected Date lastUpdated;
+    final static String rootFolder = "..\\Hospital-System\\src\\main\\resources\\"; // Default CSV folder path
 
     // Constructor
-    public MedicalRecord(int recordId, int patientId, String medicalHistory, List<String> medications, List<String> allergies, List<String> treatments, List<String> diagnoses, Date lastUpdated) {
+    public MedicalRecord(int recordId, int patientId, String medicalHistory, List<String> medications, List<String> allergies, List<String> treatments, List<String> diagnoses) {
         this.recordId = recordId;
         this.patientId = patientId;
         this.medicalHistory = medicalHistory;
@@ -22,38 +23,42 @@ public class MedicalRecord
         this.allergies = allergies;
         this.treatments = treatments;
         this.diagnoses = diagnoses;
-        this.lastUpdated = lastUpdated;
-    }
-
-    
-    // Method to add a medical record to the global list
-    public void addToMedicalRecord() {
-        MedicalRecordManager.addMedicalRecord(this);
     }
 
     // Methods to add data to the record's lists
     public void addMedication(String medication) {
         this.medications.add(medication);
-        updateLastUpdated();
     }
 
     public void addAllergy(String allergy) {
         this.allergies.add(allergy);
-        updateLastUpdated();
     }
 
     public void addTreatment(String treatment) {
         this.treatments.add(treatment);
-        updateLastUpdated();
     }
 
     public void addDiagnosis(String diagnosis) {
         this.diagnoses.add(diagnosis);
-        updateLastUpdated();
     }
-
-    // Method to update the "lastUpdated" timestamp
-    public void updateLastUpdated() {
-        this.lastUpdated = new Date();
+    
+    public void writeToCSV() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootFolder + "hospitalMedicalRecords.csv", true))) {
+            StringBuilder sb = new StringBuilder();
+            
+            sb.append(this.recordId).append(",")
+              .append(this.patientId).append(",")
+              .append("\"").append(this.medicalHistory.replace(";", ",")).append("\"").append(",")
+              .append("\"").append(String.join(";", this.medications)).append("\"").append(",")
+              .append("\"").append(String.join(";", this.allergies)).append("\"").append(",")
+              .append("\"").append(String.join(";", this.treatments)).append("\"").append(",")
+              .append("\"").append(String.join(";", this.diagnoses)).append("\"");
+            
+            writer.write(sb.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("Error writing to medical records CSV: " + e.getMessage());
+        }
     }
+    
 }

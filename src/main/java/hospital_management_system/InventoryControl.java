@@ -6,6 +6,16 @@ import java.text.SimpleDateFormat;
 
 public class InventoryControl {
 	final static String rootFolder = "..\\Hospital-System\\src\\main\\resources\\";
+    // A map to store inventory items
+    protected Map<Integer, InventoryItem> inventory;
+    protected Map<String, String> caseTypeToDepartment;
+
+    // Constructor
+    public InventoryControl() {
+        this.inventory = new HashMap<>();
+        this.caseTypeToDepartment = new HashMap<>();
+        loadCaseTypeDepartment(); // Load the case type-department mappings
+    }
     // Inner class to represent inventory items
     public static class InventoryItem {
         public int inventoryId;
@@ -26,17 +36,6 @@ public class InventoryControl {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             return inventoryId + "," + name + "," + sdf.format(dateOfPurchase) + "," + sdf.format(repairDate);
         }
-    }
-
-    // A map to store inventory items
-    private Map<Integer, InventoryItem> inventory;
-    private Map<String, String> caseTypeToDepartment;
-
-    // Constructor
-    public InventoryControl() {
-        this.inventory = new HashMap<>();
-        this.caseTypeToDepartment = new HashMap<>();
-        loadCaseTypeDepartment(); // Load the case type-department mappings
     }
 
     // Method to add an item to the inventory
