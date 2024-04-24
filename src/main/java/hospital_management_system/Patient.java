@@ -32,7 +32,6 @@ class Patient {
 		 this.emergency_contact_phone = emergency_contact_phone;
 		 this.medical_history = medical_history;
 		 this.current_conditions = current_conditions;
-		 this.writeToCSV();
 	}
 
     public void updateCurrent_conditions(String current_conditions) {
@@ -133,7 +132,7 @@ class Patient {
         return department; // Return the matching department or null if none was found
     }
     
-    private void writeToCSV() {
+    public void writeToCSV() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootFolder + "patient.csv", true))) {
             writer.write(this.patient_id + "," + this.patient_name + "," + this.age + "," + this.gender + "," +
                          this.address + "," + this.phone + "," + this.emergency_contact + "," +

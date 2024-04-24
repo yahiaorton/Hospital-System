@@ -23,7 +23,7 @@ class DoctorTest {
 
         // Validate printed messages
         assertTrue(res.contains("Doctor Dr. Davis's updated schedule for today:"));
-        assertTrue(res.contains("Patient ID: 6, Patient Name: Susan Clark, Registration Type: Inpatient Admission, Appointment Date: 2024-04-29"));
+        assertTrue(res.contains("Patient ID: 6, Patient Name: Susan Clark, Registration Type: Inpatient Admission, Appointment Date: 4/29/2024"));
     }
 	
 	@Test

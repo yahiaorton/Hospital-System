@@ -33,7 +33,7 @@ class Doctor {
 
 	public String notifyUpdatedSchedule(LocalDate currentDate) {
 		String output = "";
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
 		output += "Doctor " + name + " has a new schedule for " + currentDate.format(dateFormatter) + "\n";
 		// Fetch the updated schedule from listOfAppointment.csv
@@ -45,7 +45,7 @@ class Doctor {
 					String[] parts = line.split(",");
 					if (parts.length >= 6 && parts[6].equals(name)) {
 						String appointmentDate = parts[4].split(" ")[0];
-						if (appointmentDate.equals(currentDate.format(dateFormatter))) {
+						if ((currentDate.format(dateFormatter).contains(appointmentDate))) {
 							updatedSchedule.add(line);
 						}
 					}
