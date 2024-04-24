@@ -1,0 +1,11 @@
+appointment_id,patient_id,patient_name,appointment_registration_type,appointment_date,appointment_type,doctor
+101,1,John Doe,Emergency,4/24/2024,Specialist Consultation,Dr. Smith
+102,2,Jane Smith,Inpatient Admission,4/25/2024,Diagnostic Test,Dr. Johnson
+103,3,Peter Brown,Surgery,4/26/2024,General Surgery,Dr. Williams
+104,4,Emily Davis,Emergency,4/27/2024,Follow-up Visit,Dr. Brown
+105,5,Michael Johnson,Diagnostic,4/28/2024,Emergency,Dr. Jones
+106,6,Susan Clark,Inpatient Admission,4/29/2024,General Medicine,Dr. Davis
+107,7,Chris Lee,Surgery,4/30/2024,Pathology,Dr. Miller
+108,8,Kate White,Follow-up Visit,5/1/2024,General Medicine,Dr. Davis
+109,9,Paul Green,Emergency,5/2/2024,General Surgery,Dr. Anderson
+110,10,David Black,Diagnostic Test,5/3/2024,Specialist Consultation,Dr. Thomas

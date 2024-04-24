@@ -1,0 +1,8 @@
+case_type                  ,department                   ,current_condition
+Specialist Consultation    ,Cardiology                   ,High blood pressure; High cholesterol
+Diagnostic Test            ,Imaging                      ,Chronic headaches
+Surgery                    ,General Surgery              ,Gallstones; Hernias
+Follow-up Visit            ,General Medicine             ,Allergies; Joint pain
+Emergency                  ,Emergency                    ,Asthma; Heart attack
+Inpatient Admission        ,Internal Medicine            ,Diabetes; Hypertension
+Diagnostic                 ,Pathology                    ,Tumors; Biopsy analysis

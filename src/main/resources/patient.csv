@@ -1,0 +1,11 @@
+patient_id,patient_name,age,gender,address,phone,emergency_contact,emergency_contact_phone,medical_history,current_conditions
+1,John Doe,30,M,123 Elm Street,555-1234,Jane Doe,555-5678,"Asthma,Hypertension",High blood pressure
+2,Jane Smith,28,F,456 Oak Avenue,555-2345,Tom Smith,555-6789,Diabetes,High blood sugar
+3,Peter Brown,45,M,789 Pine Road,555-3456,Lucy Brown,555-7890,"Heart disease,Obesity",High cholesterol
+4,Emily Davis,35,F,321 Birch Lane,555-4567,John Davis,555-8901,Allergies,Peanut allergy
+5,Michael Johnson,50,M,654 Cedar Street,555-5678,Carol Johnson,555-9012,Arthritis,Joint pain
+6,Susan Clark,40,F,987 Spruce Way,555-6789,Mark Clark,555-0123,Migraines,Chronic headaches
+7,Chris Lee,38,M,258 Aspen Drive,555-7890,Angela Lee,555-1230,None,No current conditions
+8,Kate White,26,F,741 Maple Street,555-8901,Paul White,555-2340,None,No current conditions
+9,Paul Green,55,M,852 Poplar Avenue,555-9012,Lisa Green,555-3450,"Hypertension,Diabetes","High blood pressure,High blood sugar"
+10,David Black,33,M,963 Redwood Road,555-0123,Jessica Black,555-4560,None,No current conditions

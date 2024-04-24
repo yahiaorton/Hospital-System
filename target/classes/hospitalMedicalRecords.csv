@@ -1,0 +1,11 @@
+patient_id   ,patient_name       ,appointment_count     ,cancelled_appointments    ,edited_appointments   ,appointment_types    ,doctors_associated
+1,John Doe,3,1,0,Emergency;Specialist Consultation,Dr. Smith
+2,Jane Smith,2,0,0,Inpatient Admission;Diagnostic Test,Dr. Johnson
+3,Peter Brown,1,0,1,Surgery,Dr. Williams
+4,Emily Davis,1,0,0,Follow-up Visit,Dr. Brown
+5,Michael Johnson,2,1,0,Emergency;Diagnostic,Dr. Jones
+6,Susan Clark,1,0,0,Inpatient Admission,Dr. Davis
+7,Chris Lee,1,0,1,Surgery,Dr. Miller
+8,Kate White,1,0,0,Follow-up Visit,Dr. Taylor
+9,Paul Green,1,0,0,Emergency,Dr. Anderson
+10,David Black,1,0,0,Diagnostic Test,Dr. Thomas
