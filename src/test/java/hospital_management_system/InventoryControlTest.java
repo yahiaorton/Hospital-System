@@ -7,27 +7,40 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class InventoryControlTest {
 
 private InventoryControl inventoryControl;
+private static InventoryControl.InventoryItem item;
+private static SimpleDateFormat sdf;
+    
+    @BeforeAll
+    public static void setUpAll() throws ParseException {
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOfPurchase1 = sdf.parse("2022-01-15");
+        Date repairDate1 = sdf.parse("2023-01-15");
+        
+        item = new InventoryControl.InventoryItem(10, "Item10", dateOfPurchase1, repairDate1);
+        
+    }
     
     @BeforeEach
     public void setUp() {
         inventoryControl = new InventoryControl();
+        inventoryControl.addInventoryItem(item);
+    }
+    @AfterEach
+    public void cleanUp() {
+    	inventoryControl.removeInventoryItem(10);
+    	inventoryControl = null;
     }
     
     @Test
-    public void testAddInventoryItem() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfPurchase = sdf.parse("2022-01-15");
-        Date repairDate = sdf.parse("2023-01-15");
-        
-        InventoryControl.InventoryItem item = new InventoryControl.InventoryItem(10, "Item10", dateOfPurchase, repairDate);
-        inventoryControl.addInventoryItem(item);
-        
+    public void testAddInventoryItem() throws ParseException {       
         InventoryControl.InventoryItem retrievedItem = inventoryControl.getInventoryItemById(10);
         
         assertNotNull(retrievedItem);
@@ -38,14 +51,7 @@ private InventoryControl inventoryControl;
     }
     
     @Test
-    public void testRemoveInventoryItem() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfPurchase = sdf.parse("2022-01-15");
-        Date repairDate = sdf.parse("2023-01-15");
-        
-        InventoryControl.InventoryItem item = new InventoryControl.InventoryItem(10, "Item10", dateOfPurchase, repairDate);
-        inventoryControl.addInventoryItem(item);
-        
+    public void testRemoveInventoryItem() throws ParseException {  
         inventoryControl.removeInventoryItem(10);
         
         InventoryControl.InventoryItem retrievedItem = inventoryControl.getInventoryItemById(10);
@@ -55,24 +61,17 @@ private InventoryControl inventoryControl;
     
     @Test
     public void testListAllInventoryItems() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOfPurchase1 = sdf.parse("2022-01-15");
-        Date repairDate1 = sdf.parse("2023-01-15");
+        Date dateOfPurchase20 = sdf.parse("2022-02-15");
+        Date repairDate20 = sdf.parse("2023-02-15");
         
-        InventoryControl.InventoryItem item1 = new InventoryControl.InventoryItem(1, "Item1", dateOfPurchase1, repairDate1);
-        inventoryControl.addInventoryItem(item1);
-        
-        Date dateOfPurchase2 = sdf.parse("2022-02-15");
-        Date repairDate2 = sdf.parse("2023-02-15");
-        
-        InventoryControl.InventoryItem item2 = new InventoryControl.InventoryItem(2, "Item2", dateOfPurchase2, repairDate2);
-        inventoryControl.addInventoryItem(item2);
+        InventoryControl.InventoryItem item20 = new InventoryControl.InventoryItem(20, "Item20", dateOfPurchase20, repairDate20);
+        inventoryControl.addInventoryItem(item20);
         
         Map<Integer, InventoryControl.InventoryItem> inventoryItems = inventoryControl.listAllInventoryItems();
         
         assertEquals(2, inventoryItems.size());
-        assertTrue(inventoryItems.containsKey(1));
-        assertTrue(inventoryItems.containsKey(2));
+        assertTrue(inventoryItems.containsKey(10));
+        assertTrue(inventoryItems.containsKey(20));
     }
     
     @Test
