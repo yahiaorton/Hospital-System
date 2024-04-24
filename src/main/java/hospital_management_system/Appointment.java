@@ -15,13 +15,14 @@ import java.util.Scanner;
 
 
 class Appointment {
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final String TIME_FORMAT = "HH:mm:ss";
-    final static String rootFolder = "..\\Hospital-System\\src\\main\\resources\\";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
+    private static final String TIME_FORMAT = "HH:mm";
+    protected static String rootFolder = "..\\Hospital-System\\src\\main\\resources\\";
     private static int nextAppointmentId = 122; // Assuming you have existing IDs up to 121
 
     // Emergency appointment registration
-    public static void emergencyAppointment(Patient patient) {
+    public static String emergencyAppointment(Patient patient) {
+    	String output = "";
         LocalDateTime currentDate = LocalDateTime.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
@@ -31,15 +32,13 @@ class Appointment {
             String line;
             LocalDateTime closestTime = null;
             String closestDoctor = null;
-            String closestDoctorName = null;
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length >= 7 && "Emergency".equals(parts[3])) { // Assuming Emergency is the department
-                    String[] availableTimes = parts[6].split(";");
+                if (parts.length >= 6 && "Emergency".equals(parts[3])) { // Assuming Emergency is the department
+                    String[] availableTimes = parts[5].split(";");
                     for (String time : availableTimes) {
-                        LocalDateTime doctorTime = LocalDateTime.parse(currentDate.toLocalDate() + " " + time, timeFormatter);
-
+                        LocalDateTime doctorTime = LocalDateTime.parse(currentDate.toLocalDate() + " " + time.split("-")[0], dateFormatter);
                         if (closestTime == null || doctorTime.isAfter(currentDate)) {
                             closestTime = doctorTime;
                             closestDoctor = parts[0]; // Doctor's name
@@ -49,7 +48,7 @@ class Appointment {
             }
 
             if (closestDoctor != null) {
-                System.out.println("Emergency appointment registered with: " + closestDoctor + " at " + closestTime.format(dateFormatter));
+                output += ("Emergency appointment registered with: " + closestDoctor + " at " + closestTime.format(dateFormatter));
 
                 // Add the patient to the list of appointments CSV
                 try (BufferedWriter appointmentWriter = new BufferedWriter(new FileWriter(rootFolder + "listOfAppointments.csv", true))) {
@@ -74,12 +73,14 @@ class Appointment {
 
                 nextAppointmentId++; // Increment the appointment ID
             } else {
-                System.out.println("No emergency doctors are available at this moment.");
+                output += ("No emergency doctors are available at this moment.");
             }
 
         } catch (IOException e) {
             System.err.println("Error reading doctors CSV: " + e.getMessage());
         }
+        
+        return output;
     }
 
     // Update doctor's available times
@@ -290,4 +291,5 @@ class Appointment {
             System.err.println("Error reading doctor's CSV: " + e.getMessage());
         }
     }
+
 }

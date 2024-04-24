@@ -10,3 +10,10 @@ appointment_id,patient_id,patient_name,appointment_registration_type,appointment
 109,9,Paul Green,Emergency,5/2/2024,General Surgery,Dr. Anderson
 110,10,David Black,Diagnostic Test,5/3/2024,Specialist Consultation,Dr. Thomas
 122,404,John Doe,Scheduled,2024-04-24 09:00:39,Regular Checkup,Dr. Smith
+122,404,John Doe,Emergency,2024-04-25 00:26,Emergency,Dr. Jones
+122,404,John Doe,Emergency,2024-04-25 00:30,Emergency,Dr. Jones
+122,404,John Doe,Emergency,2024-04-25 00:32,Emergency,Dr. Jones
+122,404,John Doe,Emergency,2024-04-25 00:35,Emergency,Dr. Jones
+123,404,John Doe,Emergency,2024-04-25 00:35,Emergency,Dr. Jones
+122,404,John Doe,Emergency,2024-04-25 00:39,Emergency,Dr. Jones
+122,404,John Doe,Emergency,2024-04-25 00:40,Emergency,Dr. Jones
