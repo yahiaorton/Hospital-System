@@ -1,8 +1,6 @@
 package hospital_management_system;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -69,6 +67,22 @@ class Doctor {
 		}
 		
 		return output;
+	}
+	
+	public void writeToCSV() {
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootFolder + "doctor.csv", true))) {
+	        StringBuilder sb = new StringBuilder();
+	        
+	        sb.append(this.name).append(",").append(this.workingTime).append(",")
+	          .append(this.workingDates).append(",").append(this.department).append(",")
+	          .append(String.join(";", this.appointmentIds.toString())).append(",")
+	          .append(String.join(";", this.availableTimes));
+
+	        writer.write(sb.toString());
+	        writer.newLine();
+	    } catch (IOException e) {
+	        System.err.println("Error writing to doctors CSV: " + e.getMessage());
+	    }
 	}
 	
 	@Override
