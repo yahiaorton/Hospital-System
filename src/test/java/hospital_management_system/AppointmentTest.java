@@ -5,14 +5,24 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import org.junit.jupiter.api.BeforeEach;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
 class AppointmentTest {
 
 	private Appointment appointment;
     private Patient patient;
+    
+    
+    @BeforeAll
+    public void setUpAll() {
+        Appointment.rootFolder = "..\\Hospital-System\\src\\test\\resources\\";
+    	
+    	
+    }
+    
 
     @BeforeEach
     public void setUp() {
@@ -33,7 +43,6 @@ class AppointmentTest {
     public void testNoAvailableEmergencyDoctor() throws IOException {
         // Mocking doctor.csv content without available emergency doctors
         String mockDoctorCsv = "Dr. Johnson,Imaging,,Cardiology,,10:00:00;11:00:00";
-        Appointment.rootFolder = "..\\Hospital-System\\src\\test\\resources\\";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(Appointment.rootFolder + "doctor.csv"))) {
             writer.write(mockDoctorCsv);
         }
@@ -45,12 +54,51 @@ class AppointmentTest {
 
         assertEquals("No emergency doctors are available at this moment.", result.trim());
 
-        // Cleaning up doctor.csv after the test
+    }
+    
+    
+    @Test
+    
+    public void testupdateDoctorAvailableTimes() {
+    	//Test Data
+    	String doctorName = "Dr. Johns";
+        String registeredTime = "09:00";
+        Appointment.updateDoctorAvailableTimes(doctorName, registeredTime);
+        	
+        
+        List<String> Data = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(Appointment.rootFolder))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Data.add(line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading doctor's data from CSV: " + e.getMessage());
+        }
+        
+        
+     // Find the line corresponding to the doctor with the updated times
+        String updatedDoctor = Data.stream()
+                                      .filter(line -> line.startsWith(doctorName))
+                                      .findFirst()
+                                      .orElse("");
+
+        // Check if the registeredTime is removed from Dr. John's available times
+        assertFalse(updatedDoctor.contains(registeredTime));
+        
+    }
+    
+    
+    @AfterAll
+    public void cleanAll() {
         File doctorCsvFile = new File(Appointment.rootFolder + "doctor.csv");
         if (doctorCsvFile.exists()) {
             doctorCsvFile.delete();
         }
         Appointment.rootFolder = "..\\Hospital-System\\src\\main\\resources\\";
     }
+    
+    	
+    
 
 }
