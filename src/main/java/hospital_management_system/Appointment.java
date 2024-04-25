@@ -84,7 +84,7 @@ class Appointment {
     }
 
     // Update doctor's available times
-    private static void updateDoctorAvailableTimes(String doctorName, String registeredTime) {
+    public static void updateDoctorAvailableTimes(String doctorName, String registeredTime) {
         try {
             List<String> lines = new ArrayList<>();
             try (BufferedReader reader = new BufferedReader(new FileReader(rootFolder + "doctor.csv"))) {

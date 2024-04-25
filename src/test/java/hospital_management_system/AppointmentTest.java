@@ -17,9 +17,13 @@ class AppointmentTest {
     
     
     @BeforeAll
-    public void setUpAll() {
+    public static void setUpAll() throws IOException {
         Appointment.rootFolder = "..\\Hospital-System\\src\\test\\resources\\";
-    	
+     // Mocking doctor.csv content without available emergency doctors
+        String mockDoctorCsv = "Dr. Johnson,Imaging,,Cardiology,,10:00:00;11:00:00";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Appointment.rootFolder + "doctor.csv"))) {
+            writer.write(mockDoctorCsv);
+        }
     	
     }
     
@@ -67,7 +71,7 @@ class AppointmentTest {
         	
         
         List<String> Data = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(Appointment.rootFolder))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Appointment.rootFolder + "doctor.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Data.add(line);
@@ -90,8 +94,8 @@ class AppointmentTest {
     
     
     @AfterAll
-    public void cleanAll() {
-        File doctorCsvFile = new File(Appointment.rootFolder + "doctor.csv");
+    public static void cleanAll() {
+    	File doctorCsvFile = new File(Appointment.rootFolder + "doctor.csv");
         if (doctorCsvFile.exists()) {
             doctorCsvFile.delete();
         }
